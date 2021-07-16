@@ -2,33 +2,38 @@ namespace SpriteKind {
     export const Hoop = SpriteKind.create()
 }
 controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
-    projectile = sprites.createProjectileFromSprite(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . 2 2 2 2 2 2 2 2 . . . . 
-        . . . 2 2 2 4 f 4 f 4 2 . . . . 
-        . . . . 2 4 f f 4 f 4 2 . . . . 
-        . . . 2 2 4 f 4 4 f 4 2 . . . . 
-        . . . 2 4 4 f 4 4 f 4 2 . . . . 
-        . . . 2 4 4 f 4 4 f 4 2 . . . . 
-        . . . . 2 2 f 4 4 f 4 2 . . . . 
-        . . . . . . 2 2 2 2 2 . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, playerSprite, 0, -100)
-    basketballs += -1
-    projectile.startEffect(effects.coolRadial)
+    if (basketballs > 0) {
+        projectile = sprites.createProjectileFromSprite(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . 2 2 2 2 2 2 2 2 . . . . 
+            . . . 2 2 2 4 f 4 f 4 2 . . . . 
+            . . . . 2 4 f f 4 f 4 2 . . . . 
+            . . . 2 2 4 f 4 4 f 4 2 . . . . 
+            . . . 2 4 4 f 4 4 f 4 2 . . . . 
+            . . . 2 4 4 f 4 4 f 4 2 . . . . 
+            . . . . 2 2 f 4 4 f 4 2 . . . . 
+            . . . . . . 2 2 2 2 2 . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, playerSprite, 0, -100)
+        basketballs += -1
+        projectile.startEffect(effects.coolRadial)
+    } else {
+        game.over(false)
+    }
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Hoop, function (sprite, otherSprite) {
     game.over(true)
 })
-let basketballs = 0
 let projectile: Sprite = null
 let playerSprite: Sprite = null
+let basketballs = 0
+basketballs = 3
 scene.setBackgroundImage(img`
     dddddddddddddddddddddddddddddddddddddddd111111111111111111111111111111111111111111111111111111111111111111111111111111111ddddddddddddddddddddddddddddddddddddddd
     dddddddddddddddddddddddddddddddddddddddd1ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd1ddddddddddddddddddddddddddddddddddddddd
